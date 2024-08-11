@@ -1,47 +1,72 @@
 <template>
-  <v-app id="inspire" class="fill-container">
-    <v-navigation-drawer class="pt-4" color="grey-lighten-3" model-value rail>
-      <v-avatar
-        v-for="n in 6"
-        :key="n"
-        :color="`grey-${n === 1 ? 'darken' : 'lighten'}-1`"
-        :size="n === 1 ? 36 : 20"
-        class="d-block text-center mx-auto mb-9"
-      ></v-avatar>
-    </v-navigation-drawer>
-
-    <v-main class="fill-container">
-      <v-container fuild class="fill-container">
-        <v-row>
-          <v-col>
-            <v-card title="Kangoroo" flat>
-              <v-text-field
-                v-model="search"
-                label="Search"
-                prepend-inner-icon="mdi-magnify"
-                variant="outlined"
-                hide-details
-                single-line
-              ></v-text-field>
-              <v-data-table
-                multi-sort
-                :headers="headers"
-                :items="items"
-                item-value="name"
-                :loading="loading"
-                :search="search"
-                density="compact"
-              >
-                <template v-slot:loading>
-                  <v-skeleton-loader type="table-row@15"></v-skeleton-loader>
-                </template>
-              </v-data-table>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+  <vue-excel-editor v-model="items" readonly filter-row remember>
+    <vue-excel-column
+      field="施設形態"
+      label="施設形態"
+      type="string"
+      width="100px"
+    />
+    <vue-excel-column
+      field="配属先"
+      label="配属先"
+      type="string"
+      width="100px"
+    />
+    <vue-excel-column
+      field="寮の有無"
+      label="寮の有無"
+      type="select"
+      :options="['有', '無']"
+      width="50px"
+    />
+    <vue-excel-column
+      field="年間休日 120 日以上可否"
+      label="年間休日 120 日以上可否"
+      type="select"
+      :options="['可', '否']"
+      width="75px"
+    />
+    <vue-excel-column
+      field="ブランクOK"
+      label="ブランクOK"
+      type="select"
+      :options="['', 'OK']"
+      width="50px"
+    />
+    <vue-excel-column
+      field="都道府県"
+      label="都道府県"
+      type="string"
+      width="100px"
+    />
+    <vue-excel-column
+      field="市区町村"
+      label="市区町村"
+      type="string"
+      width="100px"
+    />
+    <vue-excel-column field="職種" label="職種" type="string" width="100px" />
+    <vue-excel-column
+      field="法人名"
+      label="法人名"
+      type="string"
+      width="200px"
+    />
+    <vue-excel-column
+      field="事業者名"
+      label="事業者名"
+      type="string"
+      width="300px"
+    />
+    <vue-excel-column field="給与" label="給与" type="string" width="180px" />
+    <vue-excel-column
+      field="参考"
+      label="参考"
+      type="string"
+      autoFillWidth
+      :is-link="() => true"
+    />
+  </vue-excel-editor>
 </template>
 
 <script setup>
@@ -93,37 +118,4 @@ function onClick() {
 onMounted(fetchData);
 </script>
 
-<style scoped>
-html,
-body,
-#app {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.v-application {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.v-main {
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-.fill-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-</style>
+<style scoped></style>
