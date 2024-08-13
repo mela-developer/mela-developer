@@ -95,7 +95,7 @@ const fetchData = async () => {
   loading.value = true;
   try {
     const response = await fetch(
-      "https://raw.githubusercontent.com/shinoka7/shinoka7.github.io/main/data/kangoroo.json"
+      "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/kangoroo.json"
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
