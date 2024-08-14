@@ -70,24 +70,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
-
-const search = ref("");
-const headers = ref([
-  { title: "施設形態", key: "施設形態" },
-  { title: "配属先", key: "配属先" },
-  { title: "寮の有無", key: "寮の有無" },
-  { title: "車通勤の可否", key: "車通勤の可否" },
-  { title: "年間休日 120 日以上可否", key: "年間休日 120 日以上可否" },
-  { title: "ブランクOK", key: "ブランクOK" },
-  { title: "都道府県", key: "都道府県" },
-  { title: "市区町村", key: "市区町村" },
-  { title: "職種", key: "職種" },
-  { title: "法人名", key: "法人名" },
-  { title: "事業者名", key: "事業者名" },
-  { title: "給与", key: "給与" },
-  { title: "参考", key: "参考" },
-]);
+import { ref, onMounted } from "vue";
 
 const items = ref([]);
 const loading = ref(false);
@@ -95,13 +78,13 @@ const fetchData = async () => {
   loading.value = true;
   try {
     const response = await fetch(
-      "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/kangoroo.json"
+      "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_kangoroo.json"
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    items.value = data; // Assuming data is an array of objects
+    items.value = data;
   } catch (error) {
     console.error("There was a problem fetching the data:", error);
   } finally {
@@ -109,12 +92,6 @@ const fetchData = async () => {
   }
 };
 
-const theme = ref("light");
-function onClick() {
-  theme.value = theme.value === "light" ? "dark" : "light";
-}
-
-// Fetch the data when the component is mounted
 onMounted(fetchData);
 </script>
 
