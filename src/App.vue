@@ -74,17 +74,15 @@ import { ref, onMounted } from "vue";
 
 const items = ref([]);
 const loading = ref(false);
-const fetchData = async () => {
+
+const fetchData = async (url) => {
   loading.value = true;
   try {
-    const response = await fetch(
-      "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_kangoroo.json"
-    );
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    const data = await response.json();
-    items.value = data;
+    return await response.json();
   } catch (error) {
     console.error("There was a problem fetching the data:", error);
   } finally {
@@ -92,7 +90,16 @@ const fetchData = async () => {
   }
 };
 
-onMounted(fetchData);
-</script>
+onMounted(async () => {
+  let kangoRooItems = await fetchData(
+    "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_kangoroo.json"
+  );
+  console.log(kangoRooItems);
+  let leverWellItems = await fetchData(
+    "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_leverwell.json"
+  );
 
-<style scoped></style>
+  items.value = [...kangoRooItems, ...leverWellItems];
+  loading.value = false;
+});
+</script>
