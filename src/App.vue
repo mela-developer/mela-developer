@@ -72,6 +72,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
+const isDev = import.meta.env.DEV || false;
+
 const items = ref([]);
 const loading = ref(false);
 
@@ -92,11 +94,15 @@ const fetchData = async (url) => {
 
 onMounted(async () => {
   let kangoRooItems = await fetchData(
-    "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_kangoroo.json"
+    isDev
+    ? "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_kangoroo.json"
+    : "../data/items_kangoroo.json"
+  
   );
-  console.log(kangoRooItems);
   let leverWellItems = await fetchData(
-    "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_leverwell.json"
+    isDev
+    ? "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_leverwell.json"
+    : "../data/items_leverwell.json"
   );
 
   items.value = [...kangoRooItems, ...leverWellItems];
