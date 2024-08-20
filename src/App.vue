@@ -95,14 +95,13 @@ const fetchData = async (url) => {
 onMounted(async () => {
   let kangoRooItems = await fetchData(
     isDev
-    ? "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_kangoroo.json"
-    : "../data/items_kangoroo.json"
-  
+      ? "../data/items_kangoroo.json"
+      : "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_kangoroo.json"
   );
   let leverWellItems = await fetchData(
     isDev
-    ? "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_leverwell.json"
-    : "../data/items_leverwell.json"
+      ? "../data/items_leverwell.json"
+      : "https://raw.githubusercontent.com/mela-developer/mela-developer/main/data/items_leverwell.json"
   );
 
   items.value = [...kangoRooItems, ...leverWellItems];
